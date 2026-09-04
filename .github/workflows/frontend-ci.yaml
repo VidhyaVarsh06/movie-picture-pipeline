@@ -24,8 +24,13 @@ jobs:
           cache: npm
           cache-dependency-path: starter/frontend/package-lock.json
       - name: Install dependencies
-        run: npm ci
         timeout-minutes: 5
+        run: |
+          for i in 1 2 3; do
+            npm ci && break
+            echo "npm ci failed, retrying in 15s... (attempt $i)"
+            sleep 15
+          done
       - run: npm run lint
 
   test:
@@ -39,8 +44,13 @@ jobs:
           cache: npm
           cache-dependency-path: starter/frontend/package-lock.json
       - name: Install dependencies
-        run: npm ci
         timeout-minutes: 5
+        run: |
+          for i in 1 2 3; do
+            npm ci && break
+            echo "npm ci failed, retrying in 15s... (attempt $i)"
+            sleep 15
+          done
       - run: CI=true npm test
 
   build:
@@ -55,8 +65,13 @@ jobs:
           cache: npm
           cache-dependency-path: starter/frontend/package-lock.json
       - name: Install dependencies
-        run: npm ci
         timeout-minutes: 5
+        run: |
+          for i in 1 2 3; do
+            npm ci && break
+            echo "npm ci failed, retrying in 15s... (attempt $i)"
+            sleep 15
+          done
       - name: Build Docker image
         run: |
           docker build \
