@@ -90,6 +90,7 @@ jobs:
             echo "npm ci failed, retrying in 15s... (attempt $i)"
             sleep 15
           done
+      - run: CI=true npm test
       - name: Build Docker image
         run: |
           docker build \
